@@ -1,4 +1,5 @@
 # Teamsheet
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.24.
 
