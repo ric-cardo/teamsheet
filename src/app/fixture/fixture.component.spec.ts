@@ -10,14 +10,17 @@ import { MaterialModule } from '@angular/material';
 @Component({
   template: `
     <app-fixture
-      [opponent]="opponent" 
-      [date]=date
+      [fixture]="fixture" 
+      (yes)="onYes()"
+      (no)="onNo()"
     >
     </app-fixture>`
 })
 class TestHostComponent {
-  opponent = 'opponent';
-  date = 'saturday 7th jan';
+  fixture = {
+    opponent:'opponent',
+    date:'saturday 7th jan'
+  }
 }
 
 fdescribe('FixtureComponent', () => {

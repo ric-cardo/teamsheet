@@ -6,8 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./fixture.component.css']
 })
 export class FixtureComponent implements OnInit {
-  @Input() opponent;
-  @Input() date;
+  @Input() fixture;
 
   constructor() { }
 
