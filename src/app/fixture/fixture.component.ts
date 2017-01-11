@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-fixture',
@@ -7,10 +7,23 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FixtureComponent implements OnInit {
   @Input() fixture;
+ 
+  @Output() yes = new EventEmitter();
+  @Output() no = new EventEmitter();
+
+  availability;
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  setAvailability(isAvailible){
+    if(parseInt(isAvailible.value)){
+      this.yes.emit();
+    }
+    else{
+      this.no.emit();
+    }
+  }
 }

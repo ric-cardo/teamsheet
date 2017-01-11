@@ -21,9 +21,19 @@ class TestHostComponent {
     opponent:'opponent',
     date:'saturday 7th jan'
   }
+
+  availible = null;
+
+  onYes(){
+    this.availible = true;
+  }
+
+  onNo(){
+    this.availible = false;
+  }
 }
 
-fdescribe('FixtureComponent', () => {
+describe('FixtureComponent', () => {
   let component: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
 
@@ -51,5 +61,23 @@ fdescribe('FixtureComponent', () => {
     var subtitle = fixture.debugElement.query(By.css('md-card-subtitle'));
     var expected = 'saturday 7th jan';
     expect(subtitle.nativeElement.textContent).toBe(expected);
+  });
+
+  it('should raise a yes event when yes button clicked', () => {
+    fixture
+      .nativeElement
+      .querySelectorAll('input')[0]
+      .click();
+
+    expect(component.availible).toBe(true);
+  });
+
+  it('should raise a no event when no button clicked', () => {
+    fixture
+      .nativeElement
+      .querySelectorAll('input')[1]
+      .click();
+
+      expect(component.availible).toBe(false);
   });
 });

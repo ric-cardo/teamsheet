@@ -3,4 +3,13 @@
     <md-card-title>{{fixture.opponent}}</md-card-title>
     <md-card-subtitle>{{fixture.date}}</md-card-subtitle>
   </md-card-header>
+  
+  <md-card-actions>
+      <md-card-subtitle>playing ?</md-card-subtitle>
+        <md-button-toggle-group [value]="availability" (change)="setAvailability($event)">
+          <md-button-toggle value="1" color="accent">Yes</md-button-toggle>
+          <md-button-toggle value="0" color="accent">No</md-button-toggle>
+      </md-button-toggle-group>
+   </md-card-actions>
+
 </md-card>
