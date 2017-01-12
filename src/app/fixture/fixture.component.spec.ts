@@ -13,6 +13,7 @@ import { MaterialModule } from '@angular/material';
       [fixture]="fixture" 
       (yes)="onYes()"
       (no)="onNo()"
+      (delete)="onDelete()"
     >
     </app-fixture>`
 })
@@ -23,6 +24,7 @@ class TestHostComponent {
   }
 
   availible = null;
+  deleted = null;
 
   onYes(){
     this.availible = true;
@@ -30,6 +32,10 @@ class TestHostComponent {
 
   onNo(){
     this.availible = false;
+  }
+
+  onDelete(){
+    this.deleted = true;
   }
 }
 
@@ -80,4 +86,14 @@ describe('FixtureComponent', () => {
 
       expect(component.availible).toBe(false);
   });
+
+    it('should raise a no event when no button clicked', () => {
+      fixture
+        .nativeElement
+        .querySelector('.delete-button')
+        .click();
+
+        expect(component.deleted).toBe(true);
+  });
+
 });

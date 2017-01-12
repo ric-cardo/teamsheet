@@ -2,6 +2,15 @@
   <md-card-header>
     <md-card-title>{{fixture.opponent}}</md-card-title>
     <md-card-subtitle>{{fixture.date}}</md-card-subtitle>
+    <button
+      class="delete-button" 
+      md-icon-button 
+      color="accent" 
+      (click)="delete.emit(fixture)"
+    >
+      <md-icon>delete</md-icon>
+    </button>
+
   </md-card-header>
   
   <md-card-actions>
