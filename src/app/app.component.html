@@ -1,1 +1,4 @@
-<app-fixture [fixture]='fixture'></app-fixture>
+<app-fixture 
+    *ngFor="let fixture of fixtures$ | async"
+    [fixture]='fixture'
+></app-fixture>

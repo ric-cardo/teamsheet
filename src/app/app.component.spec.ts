@@ -1,14 +1,30 @@
 /* tslint:disable:no-unused-variable */
+import { NO_ERRORS_SCHEMA } from '@angular/core/';
+import { TestBed, async, tick,fakeAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
-import { TestBed, async } from '@angular/core/testing';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 import { AppComponent } from './app.component';
+import { FixtureService } from './fixtures/fixture.service';
+
+class  FixtureServiceStub {
+    _fixtures = [ 
+      {opponent:'team1', date:'sat 14 jan'},
+      {opponent:'team2', date:'sat 21 jan'}
+    ];
+    subject = new BehaviorSubject(this._fixtures);
+    fixtures = this.subject.asObservable();
+}
 
 describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
       ],
+      providers: [{ provide: FixtureService, useClass: FixtureServiceStub }],
+      schemas:[NO_ERRORS_SCHEMA],
     });
     TestBed.compileComponents();
   });
@@ -19,16 +35,17 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it(`should have as title 'app works!'`, async(() => {
-    let fixture = TestBed.createComponent(AppComponent);
-    let app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app works!');
-  }));
+  it('ngOnInit() should subscribe to fixtures', async(() => {
+    let app = TestBed.createComponent(AppComponent);
+    let component = app.debugElement.componentInstance;
+    let fixtures;
 
-  it('should render title in a h1 tag', async(() => {
-    let fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    let compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('app works!');
-  }));
+    component.ngOnInit();
+    component.fixtures$.subscribe(fixtures =>{
+       expect(fixtures.length).toBe(2);
+       expect(fixtures[0].opponent).toBe('team1');
+       expect(fixtures[0].date).toBe('sat 14 jan');
+    })
+   
+  }))
 });
