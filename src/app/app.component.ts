@@ -15,4 +15,8 @@ export class AppComponent implements OnInit {
   ngOnInit(){
     this.fixtures$ = this.fixtureService.fixtures;
   }
+
+  addFixture(fixture){
+    this.fixtureService.add(fixture);
+  }
 }

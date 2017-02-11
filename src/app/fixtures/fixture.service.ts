@@ -5,5 +5,7 @@ export class FixtureService {
   fixtures
   
   constructor() { }
+
+  add(fixture){}
   
 }
