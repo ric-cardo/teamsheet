@@ -19,4 +19,8 @@ export class AppComponent implements OnInit {
   addFixture(fixture){
     this.fixtureService.add(fixture);
   }
+
+  deleteFixture(fixture){
+    this.fixtureService.delete(fixture);
+  }
 }
