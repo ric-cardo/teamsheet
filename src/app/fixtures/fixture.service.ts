@@ -9,5 +9,7 @@ export class FixtureService {
   add(fixture){}
 
   delete(fixture){}
+
+  update(fixture){}
   
 }

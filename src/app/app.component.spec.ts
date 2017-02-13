@@ -25,6 +25,18 @@ class  FixtureServiceStub {
       this._fixtures = this._fixtures.filter(f => f.id !== fixture.id);
       this.subject.next(this._fixtures);
     }
+
+    update(fixture){
+      this._fixtures.forEach(f => {
+        if(f.id === fixture.id){
+          return Object.assign(f,fixture);
+        }
+
+        return fixture;
+        
+      });
+      this.subject.next(this._fixtures);
+    }
     
 }
 
@@ -80,7 +92,7 @@ fdescribe('AppComponent', () => {
         expect(fixtures[2].opponent).toBe('team3');
         expect(fixtures[2].date).toBe('sat 14 jan');
       })   
-    }));
+  }));
 
     it('deleteFixture() should delete a fixture from the list ', async(() => {
       let app = TestBed.createComponent(AppComponent);
@@ -104,4 +116,29 @@ fdescribe('AppComponent', () => {
         expect(fixtures[0].date).toBe('sat 21 jan');
       })   
     }));
+
+  it('updateFixture() should update a fixture from the list ', async(() => {
+    let app = TestBed.createComponent(AppComponent);
+    let component = app.debugElement.componentInstance;
+    let fixtures;
+
+    component.ngOnInit();
+
+    component.fixtures$
+      .subscribe(fixtures =>{
+        expect(fixtures.length).toBe(2);
+        expect(fixtures[0].opponent).toBe('team1');
+        expect(fixtures[0].date).toBe('sat 14 jan');
+      })
+      .unsubscribe(); 
+
+    component.updateFixture({id:1, opponent:'team 3', date:'sat 22 jan'});
+    app.detectChanges();
+
+    component.fixtures$.subscribe(fixtures =>{
+      expect(fixtures.length).toBe(2);
+      expect(fixtures[0].opponent).toBe('team 3');
+      expect(fixtures[0].date).toBe('sat 22 jan');
+    })   
+  }));
 });
