@@ -1,15 +1,24 @@
 import { Injectable } from '@angular/core';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Injectable()
 export class FixtureService {
-  fixtures
+  fixtures 
   
-  constructor() { }
+  constructor(private af: AngularFire) {
+    this.fixtures = this.af.database.list('/fixtures') as FirebaseListObservable<any[]>;
+  }
 
-  add(fixture){}
+  add(fixture){
+    this.fixtures.push(fixture);
+  }
 
-  delete(fixture){}
+  delete(fixture){
+    this.fixtures.remove(fixture.key);
+  }
 
-  update(fixture){}
+  update(fixture){
+    this.fixtures.update(fixture.key,fixture);
+  }
   
 }

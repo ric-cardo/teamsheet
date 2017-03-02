@@ -4,7 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { MaterialModule } from '@angular/material';
+import { AngularFireModule } from 'angularfire2';
 
+import { environment } from '../environments/environment'
 import { AppComponent } from './app.component';
 import { FixtureComponent } from './fixture/fixture.component';
 import { FixtureService, FixtureFormComponent } from './fixtures';
@@ -21,6 +23,7 @@ import { FixtureService, FixtureFormComponent } from './fixtures';
     FormsModule,
     HttpModule,
     MaterialModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [FixtureService],
   bootstrap: [AppComponent],
