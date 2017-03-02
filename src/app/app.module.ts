@@ -8,9 +8,7 @@ import { AngularFireModule } from 'angularfire2';
 
 import { environment } from '../environments/environment'
 import { AppComponent } from './app.component';
-import { FixtureComponent } from './fixture/fixture.component';
-import { FixtureService, FixtureFormComponent } from './fixtures';
-
+import { FixtureComponent,FixtureService, FixtureFormComponent } from './fixtures';
 
 @NgModule({
   declarations: [
