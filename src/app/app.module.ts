@@ -7,12 +7,14 @@ import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { FixtureComponent } from './fixture/fixture.component';
+import { FixtureService, FixtureFormComponent } from './fixtures';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     FixtureComponent,
+    FixtureFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -20,7 +22,8 @@ import { FixtureComponent } from './fixture/fixture.component';
     HttpModule,
     MaterialModule.forRoot(),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [FixtureService],
+  bootstrap: [AppComponent],
+  entryComponents:[FixtureFormComponent]
 })
 export class AppModule { }

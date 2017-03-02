@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FixtureService } from './fixtures/fixture.service';
+import { MdDialog, MdDialogRef } from '@angular/material';
+
+import { FixtureService, FixtureFormComponent } from './fixtures';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,10 @@ import { FixtureService } from './fixtures/fixture.service';
 export class AppComponent implements OnInit {
   fixtures$;
 
-  constructor(public fixtureService: FixtureService){}
+  constructor(
+    public fixtureService: FixtureService,
+    public dialog: MdDialog,
+  ){}
 
   ngOnInit(){
     this.fixtures$ = this.fixtureService.fixtures;
@@ -26,5 +31,9 @@ export class AppComponent implements OnInit {
 
   updateFixture(fixture){
     this.fixtureService.update(fixture);
+  }
+
+  showFixtureForm(){
+    this.dialog.open(FixtureFormComponent);
   }
 }

@@ -1,12 +1,13 @@
 /* tslint:disable:no-unused-variable */
 import { NO_ERRORS_SCHEMA } from '@angular/core/';
-import { TestBed, async, tick,fakeAsync } from '@angular/core/testing';
+import { TestBed, async, tick, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { MaterialModule } from '@angular/material';
+
 
 import { AppComponent } from './app.component';
-import { FixtureService } from './fixtures/fixture.service';
+import { FixtureService, FixtureFormComponent } from './fixtures';
 
 class  FixtureServiceStub {
     _fixtures = [ 
@@ -40,15 +41,20 @@ class  FixtureServiceStub {
     
 }
 
-fdescribe('AppComponent', () => {
+describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
+        FixtureFormComponent
+      ],
+      imports: [
+        MaterialModule.forRoot(),
       ],
       providers: [{ provide: FixtureService, useClass: FixtureServiceStub }],
       schemas:[NO_ERRORS_SCHEMA],
-    });
+    })
+
     TestBed.compileComponents();
   });
 
@@ -141,4 +147,16 @@ fdescribe('AppComponent', () => {
       expect(fixtures[0].date).toBe('sat 22 jan');
     })   
   }));
+
+  
+  it('showfixtureForm() should render fixtureForm in dialog', () => {
+    let app = TestBed.createComponent(AppComponent);
+    let component = app.debugElement.componentInstance;
+    spyOn(component.dialog,'open')
+
+    component.showFixtureForm();
+
+    expect(component.dialog.open).toHaveBeenCalledWith(FixtureFormComponent);
+  });
+    
 });
