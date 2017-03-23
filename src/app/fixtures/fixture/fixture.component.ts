@@ -1,5 +1,7 @@
 import { Component, OnInit, Input,Output, EventEmitter } from '@angular/core';
 
+import { FixtureService } from '../fixture.service';
+
 @Component({
   selector: 'app-fixture',
   templateUrl: './fixture.component.html',
@@ -13,10 +15,12 @@ export class FixtureComponent implements OnInit {
   @Output() delete = new EventEmitter();
 
   availability;
+  players$;
 
-  constructor() { }
+  constructor(private fixtureService:FixtureService) { }
 
   ngOnInit() {
+    this.players$ = this.fixtureService.getPlayers(this.fixture.$key)
   }
 
   setAvailability(isAvailible){

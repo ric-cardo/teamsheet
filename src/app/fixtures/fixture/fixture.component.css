@@ -1,0 +1,12 @@
+.player img{
+    height:45px;
+    border-radius: 22px;
+    max-width: 45px;
+    align-self: center;
+}
+
+.player-name{
+    margin-top: 0;
+    font-size: 0.85em;
+}
+

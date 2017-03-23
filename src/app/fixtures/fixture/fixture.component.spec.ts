@@ -3,9 +3,48 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement,Component } from '@angular/core';
 
-import { FixtureComponent } from './fixture.component';
+import { FixtureComponent, FixtureService } from '../index';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs';
 
 import { MaterialModule } from '@angular/material';
+
+class  FixtureServiceStub {
+    _fixtures = [ 
+      {id:1, opponent:'team1', date:'sat 14 jan'},
+      {id:2, opponent:'team2', date:'sat 21 jan'}
+    ];
+    subject = new BehaviorSubject(this._fixtures);
+    fixtures = this.subject.asObservable();
+    players = new BehaviorSubject([]).asObservable();
+
+    add(fixture){
+      this._fixtures.push(fixture);
+      this.subject.next(this._fixtures);
+    }
+
+    delete(fixture){
+      this._fixtures = this._fixtures.filter(f => f.id !== fixture.id);
+      this.subject.next(this._fixtures);
+    }
+
+    update(fixture){
+      this._fixtures.forEach(f => {
+        if(f.id === fixture.id){
+          return Object.assign(f,fixture);
+        }
+
+        return fixture;
+        
+      });
+      this.subject.next(this._fixtures);
+    }
+
+    getPlayers(key){
+      return this.players;
+    }
+    
+}
 
 @Component({
   template: `
@@ -22,7 +61,7 @@ class TestHostComponent {
     opponent:'opponent',
     date:'saturday 7th jan'
   }
-
+  ngOnInit(){};
   availible = null;
   deleted = null;
 
@@ -46,7 +85,8 @@ describe('FixtureComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MaterialModule.forRoot()],
-      declarations: [ FixtureComponent,TestHostComponent ]
+      declarations: [ FixtureComponent,TestHostComponent ],
+      providers: [{ provide: FixtureService, useClass: FixtureServiceStub }],
     })
     .compileComponents();
   }));
@@ -94,6 +134,13 @@ describe('FixtureComponent', () => {
         .click();
 
         expect(component.deleted).toBe(true);
+  });
+
+  it('should subcribe to players subscription', () => {
+    const fixComp = fixture.debugElement.query(By.css('app-fixture')).componentInstance
+    fixComp.players$.subscribe(players =>{
+      expect(players.length).toBe(0);
+    })
   });
 
 });

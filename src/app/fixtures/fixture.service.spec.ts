@@ -57,5 +57,17 @@ describe('FixtureService', () => {
 
     expect(service.fixtures.update).toHaveBeenCalledWith(fixture.key,fixture);
   });
+
+  it('getPlayers should return players Observable', () => {
+    const key = 1;
+    const expectedRef = FixtureService.paths.fixturePlayers(key);
+    let sub:any;
+    spyOn(service.af.database,'list').and.callThrough();
+
+    sub = service.getPlayers(key);
+
+    expect(sub instanceof FirebaseListObservable).toBe(true);
+    expect(service.af.database.list).toHaveBeenCalledWith(expectedRef)
+  });
     
 });
