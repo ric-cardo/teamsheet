@@ -20,7 +20,7 @@ import { FixtureComponent,FixtureService, FixtureFormComponent } from './fixture
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot(),
+    MaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [FixtureService],
