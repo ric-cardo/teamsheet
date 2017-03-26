@@ -8,6 +8,7 @@ md-card-content{
     border-bottom: 1px solid;
     border-color: rgba(224, 224, 224, 0.5);
     padding-top:1em;
+    min-height: 50vh;
 }
 
 .player img{

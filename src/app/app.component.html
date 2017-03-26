@@ -1,4 +1,26 @@
-<app-fixture 
-    *ngFor="let fixture of fixtures$ | async"
-    [fixture]='fixture'
-></app-fixture>
+<header>
+    <md-toolbar color='primary'>
+        <button
+            md-icon-button 
+            (click)="showFixtureForm()"
+        >
+            <md-icon >add</md-icon>
+        </button>
+    </md-toolbar>
+</header>
+
+<main>
+    <section>
+        <md-tab-group>
+            <md-tab *ngFor="let fixture of fixtures$ | async">
+                <template md-tab-label>
+                    <div>{{fixture.date | date:'EEE' }}</div>
+                    <div>{{fixture.date | date:'d MMM'}}</div>
+                </template>
+                <md-tab-body origin="0" postion="1">
+                    <app-fixture [fixture]='fixture'></app-fixture>
+                </md-tab-body>
+            </md-tab>
+        </md-tab-group>
+    </section>
+</main>
