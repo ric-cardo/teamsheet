@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { MaterialModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { environment } from '../environments/environment'
 import { AppComponent } from './app.component';
@@ -22,6 +23,7 @@ import { FixtureComponent,FixtureService, FixtureFormComponent } from './fixture
     HttpModule,
     MaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
+    FlexLayoutModule,
   ],
   providers: [FixtureService],
   bootstrap: [AppComponent],

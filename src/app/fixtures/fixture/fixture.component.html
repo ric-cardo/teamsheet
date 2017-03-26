@@ -1,5 +1,5 @@
 <md-card>
-  <md-card-header>
+  <md-card-header fxLayout="row" fxLayoutAlign="space-between stretch">
     <md-card-title>{{fixture.opponent}}</md-card-title>
     <md-card-subtitle>{{fixture.date}}</md-card-subtitle>
     <button
@@ -16,7 +16,7 @@
   <md-card-content>
     <md-grid-list [cols]="4" rowHeight="5.5em">
       <md-grid-tile *ngFor="let player of players$ | async">
-        <div class="player">
+        <div class="player" fxLayout="column" fxLayoutAlign="center center">
           <img [src]="player?.image"> 
           <p class="player-name">{{player?.name}}</p>
         </div>
@@ -24,12 +24,15 @@
     </md-grid-list>    
   </md-card-content>
 
-
-  <md-card-actions>
+  <md-card-actions fxLayout="column" fxLayoutAlign="center center">
       <md-card-subtitle>playing ?</md-card-subtitle>
         <md-button-toggle-group [value]="availability" (change)="setAvailability($event)">
-          <md-button-toggle value="1" color="accent">Yes</md-button-toggle>
-          <md-button-toggle value="0" color="accent">No</md-button-toggle>
+          <md-button-toggle value="1" color="accent">
+            <md-icon>check</md-icon>
+          </md-button-toggle>
+          <md-button-toggle value="0" color="accent">
+            <md-icon>close</md-icon>
+          </md-button-toggle>
       </md-button-toggle-group>
    </md-card-actions>
 

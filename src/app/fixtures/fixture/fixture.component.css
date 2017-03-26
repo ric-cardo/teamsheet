@@ -1,3 +1,15 @@
+md-card-header{
+    padding: 0.5em;
+    height: 60px;
+}
+
+md-card-content{
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-color: rgba(224, 224, 224, 0.5);
+    padding-top:1em;
+}
+
 .player img{
     height:45px;
     border-radius: 22px;
@@ -9,4 +21,27 @@
     margin-top: 0;
     font-size: 0.85em;
 }
+
+md-card-actions{
+    margin:0;
+}
+
+md-button-toggle-group{
+    width:100%;
+}
+
+md-button-toggle{
+    flex:1;
+    text-align: center;
+}
+
+.mat-button-toggle-checked {
+    background-color: #FFEB3B;
+}
+
+md-button-toggle >>> .mat-button-toggle-label-content{
+    padding:0;
+    width:100%;
+}
+
 
