@@ -2,9 +2,10 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core/';
 import { TestBed, async, tick, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { MaterialModule } from '@angular/material';
-
 
 import { AppComponent } from './app.component';
 import { FixtureService, FixtureFormComponent } from './fixtures';
@@ -49,7 +50,8 @@ describe('AppComponent', () => {
         FixtureFormComponent
       ],
       imports: [
-        MaterialModule.forRoot(),
+        BrowserAnimationsModule,
+        MaterialModule,
       ],
       providers: [{ provide: FixtureService, useClass: FixtureServiceStub }],
       schemas:[NO_ERRORS_SCHEMA],
@@ -156,7 +158,10 @@ describe('AppComponent', () => {
 
     component.showFixtureForm();
 
-    expect(component.dialog.open).toHaveBeenCalledWith(FixtureFormComponent);
+    expect(component.dialog.open).toHaveBeenCalledWith(
+      FixtureFormComponent,
+      {width:jasmine.any(String)}
+    );
   });
     
 });

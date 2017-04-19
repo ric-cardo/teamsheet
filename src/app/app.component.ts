@@ -34,6 +34,8 @@ export class AppComponent implements OnInit {
   }
 
   showFixtureForm(){
-    this.dialog.open(FixtureFormComponent);
+    this.dialog.open(FixtureFormComponent,{
+      width:'80%'
+    });
   }
 }

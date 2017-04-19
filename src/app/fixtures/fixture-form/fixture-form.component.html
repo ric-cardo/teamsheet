@@ -1,3 +1,22 @@
-<p>
-  fixture-form works!
-</p>
+<form [formGroup]="form" fxLayout="column" fxLayoutAlign="space-around strech" fxLayoutGap="1em"> 
+  <md-radio-group formControlName="ground">
+    <md-radio-button value="home">Home</md-radio-button>
+    <md-radio-button value="away">Away</md-radio-button>
+  </md-radio-group>
+  
+  <md-input-container>
+    <input  formControlName="opponent" mdInput placeholder="team" name="opponent">
+  </md-input-container>
+
+  <md2-datepicker formControlName="date" type="datetime" name="date"></md2-datepicker>
+
+  <md-input-container class="example-full-width">
+    <textarea  formControlName="address" mdInput placeholder="address" name="address"></textarea>
+  </md-input-container>
+
+  <section fxLayout="row" fxLayoutAlign="space-between none">
+    <button md-button color="accent" (click)="dialogRef.close()">cancel</button>
+    <button md-raised-button color="primary" (click)="add(form.value)" [disabled]="!form.valid">submit</button>
+  </section>
+  
+</form>

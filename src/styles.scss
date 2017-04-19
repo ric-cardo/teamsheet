@@ -1,5 +1,53 @@
 /* You can add global styles to this file, and also import other style files */
+$primary-color: #ffeb3b;
+$secondary-color: black;
+
 html,body{
     height: 100%;
     margin: 0;
+}
+
+.cdk-overlay-container{
+    font-family:Roboto,Helvetica Neue,sans-serif;
+    
+    .md2-datepicker-header{
+        background-color: $primary-color;
+        color:$secondary-color;
+    }
+
+    .md2-clock-hand::before{
+        background-color: $primary-color
+    }
+
+    .md2-datepicker-actions .md2-button,
+    .md2-calendar-day.today,
+    .md2-clock-hour.active, 
+    .md2-clock-minute.active,
+    .md2-calendar-year.selected,
+    {
+        color:$primary-color;
+    }
+
+    .md2-clock-center,
+    .md2-clock-hand,
+    .md2-clock-hour.active, .md2-clock-minute.active{
+        background-color: $secondary-color;
+    }
+
+    .md2-calendar-day.selected, 
+    .md2-calendar-day.selected:hover{
+        color:$secondary-color;
+        background-color: $primary-color
+    }
+
+    md2-datepicker:focus:not(.md2-datepicker-disabled) .md2-datepicker-input{
+        color:$primary-color;
+        border-color: $primary-color
+    }
+
+    md2-datepicker:focus:not(.md2-datepicker-disabled) .md2-datepicker-arrow {
+        color:$primary-color;
+    }
+
+    
 }
