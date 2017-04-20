@@ -102,30 +102,7 @@ describe('AppComponent', () => {
       })   
   }));
 
-    it('deleteFixture() should delete a fixture from the list ', async(() => {
-      let app = TestBed.createComponent(AppComponent);
-      let component = app.debugElement.componentInstance;
-      let fixtures;
-
-      component.ngOnInit();
-
-      component.fixtures$
-        .subscribe(fixtures =>{
-          expect(fixtures.length).toBe(2);
-        })
-        .unsubscribe(); 
-
-      component.deleteFixture({id:1, opponent:'team1', date:'sat 14 jan'});
-      app.detectChanges();
-  
-      component.fixtures$.subscribe(fixtures =>{
-        expect(fixtures.length).toBe(1);
-        expect(fixtures[0].opponent).toBe('team2');
-        expect(fixtures[0].date).toBe('sat 21 jan');
-      })   
-    }));
-
-  it('updateFixture() should update a fixture from the list ', async(() => {
+  it('deleteFixture() should delete a fixture from the list ', async(() => {
     let app = TestBed.createComponent(AppComponent);
     let component = app.debugElement.componentInstance;
     let fixtures;
@@ -135,21 +112,18 @@ describe('AppComponent', () => {
     component.fixtures$
       .subscribe(fixtures =>{
         expect(fixtures.length).toBe(2);
-        expect(fixtures[0].opponent).toBe('team1');
-        expect(fixtures[0].date).toBe('sat 14 jan');
       })
       .unsubscribe(); 
 
-    component.updateFixture({id:1, opponent:'team 3', date:'sat 22 jan'});
+    component.deleteFixture({id:1, opponent:'team1', date:'sat 14 jan'});
     app.detectChanges();
 
     component.fixtures$.subscribe(fixtures =>{
-      expect(fixtures.length).toBe(2);
-      expect(fixtures[0].opponent).toBe('team 3');
-      expect(fixtures[0].date).toBe('sat 22 jan');
+      expect(fixtures.length).toBe(1);
+      expect(fixtures[0].opponent).toBe('team2');
+      expect(fixtures[0].date).toBe('sat 21 jan');
     })   
   }));
-
   
   it('showfixtureForm() should render fixtureForm in dialog', () => {
     let app = TestBed.createComponent(AppComponent);
@@ -160,7 +134,10 @@ describe('AppComponent', () => {
 
     expect(component.dialog.open).toHaveBeenCalledWith(
       FixtureFormComponent,
-      {width:jasmine.any(String)}
+      {
+        width:jasmine.any(String),
+        data:jasmine.any(Object)
+      }
     );
   });
     

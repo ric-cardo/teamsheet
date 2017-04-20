@@ -29,13 +29,10 @@ export class AppComponent implements OnInit {
     this.fixtureService.delete(fixture);
   }
 
-  updateFixture(fixture){
-    this.fixtureService.update(fixture);
-  }
-
-  showFixtureForm(){
+  showFixtureForm(fixture ={}){
     this.dialog.open(FixtureFormComponent,{
-      width:'80%'
+      width:'80%',
+      data:fixture
     });
   }
 }

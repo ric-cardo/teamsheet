@@ -9,7 +9,7 @@ import { FixtureFormComponent } from './fixture-form.component';
 describe('FixtureFormComponent', () => {
   let component: FixtureFormComponent;
   let dialogRef;
-  let fixtureService :any = { add(){} };
+  let fixtureService :any = { add(){}, update(){} };
 
   beforeEach(() => {
     const formbuilder = new FormBuilder();
@@ -46,6 +46,27 @@ describe('FixtureFormComponent', () => {
     formData = component.form.value;
    
     expect(expectFormData).toEqual(formData);
+  })
+
+  it('should set isEditMode = true, if initialised with data',()=>{
+    const expectFormData = {
+      opponent: 'team12',
+      address: 'somewhere',
+      date: '123',
+      ground: 'home',
+      $key:'123'
+    };
+
+    component.dialogRef.config.data = Object.assign({},expectFormData)
+    component.ngOnInit();
+   
+    expect(component.isEditMode).toBeTruthy();
+  })
+
+  it('should set isEditMode = false, if not initialised with data',()=>{
+    component.ngOnInit();
+   
+    expect(component.isEditMode).toBeFalsy();
   })
 
   it('should not populate form if initialised with no data',()=>{
@@ -213,6 +234,51 @@ describe('FixtureFormComponent', () => {
       spyOn(dialogRef,'close');
       
       component.add({
+        opponent:'team',
+        address: 'somewhere',
+        date: new Date('2016-04-01'),
+        ground: 'home',
+      });
+
+      expect(dialogRef.close).toHaveBeenCalled();
+    });
+  });
+
+  describe('update()', () => {
+    
+    it('should transform date field to timestamp', () => {
+      const expectFormData = {
+        opponent: 'team',
+        address: 'somewhere',
+        date: new Date('2016-04-01').getTime(),
+        ground: 'home'
+      };
+
+      const key = 123
+    
+      component.dialogRef.config.data = Object.assign({$key:key},expectFormData)
+      component.ngOnInit();
+      
+      spyOn(fixtureService,'update');
+    
+      component.update({
+        opponent:'team',
+        address: 'somewhere',
+        date: new Date('2016-04-01'),
+        ground: 'home',
+      });
+
+      expect(fixtureService.update).toHaveBeenCalledWith(key,expectFormData);
+    });
+      
+    it('should close the dialog', () => {
+      const key = 123
+      spyOn(dialogRef,'close');
+
+      component.dialogRef.config.data = {$key:key}
+      component.ngOnInit();
+
+      component.update({
         opponent:'team',
         address: 'somewhere',
         date: new Date('2016-04-01'),

@@ -20,8 +20,8 @@ export class FixtureService {
     this.fixtures.remove(fixture.key);
   }
 
-  update(fixture){
-    this.fixtures.update(fixture.key,fixture);
+  update(key,fixture){
+    this.fixtures.update(key,fixture);
   }
 
   getPlayers(key){

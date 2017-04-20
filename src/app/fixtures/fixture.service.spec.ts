@@ -53,7 +53,7 @@ describe('FixtureService', () => {
     const fixture = { key:'1',opponent:'team1', date:'sat 14 jan'};
     spyOn(service.fixtures,'update');
     
-    service.update(fixture);
+    service.update(fixture.key,fixture);
 
     expect(service.fixtures.update).toHaveBeenCalledWith(fixture.key,fixture);
   });

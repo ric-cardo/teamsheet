@@ -11,6 +11,7 @@ import { FixtureService } from '../fixture.service';
 })
 export class FixtureFormComponent implements OnInit {
   form: FormGroup;
+  isEditMode;
   constructor(
     private fb: FormBuilder, 
     private fixtureService: FixtureService,
@@ -19,12 +20,14 @@ export class FixtureFormComponent implements OnInit {
 
   ngOnInit() {
 
-    const model = Object.assign(
+    const model  = Object.assign(
       {},
       this.getDefaultValues(),
       this.dialogRef.config.data
     );
- 
+
+    this.isEditMode = this.dialogRef.config.data && this.dialogRef.config.data.hasOwnProperty('$key');
+    
     this.form = this.fb.group({
       opponent: [model.opponent, Validators.required],
       address: [model.address, Validators.required],
@@ -45,6 +48,16 @@ export class FixtureFormComponent implements OnInit {
   add(formData){
     formData.date = formData.date.getTime();
     this.fixtureService.add(formData);
+    this.dialogRef.close();
+  }
+
+  update(formData){
+
+    if(typeof formData.date.getTime === 'function'){
+       formData.date =  formData.date.getTime();
+    }
+   
+    this.fixtureService.update(this.dialogRef.config.data.$key,formData);
     this.dialogRef.close();
   }
 }

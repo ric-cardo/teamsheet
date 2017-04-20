@@ -13,6 +13,7 @@ export class FixtureComponent implements OnInit {
   @Output() yes = new EventEmitter();
   @Output() no = new EventEmitter();
   @Output() delete = new EventEmitter();
+  @Output() edit = new EventEmitter();
 
   availability;
   players$;

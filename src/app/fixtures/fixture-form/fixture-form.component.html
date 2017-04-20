@@ -16,7 +16,11 @@
 
   <section fxLayout="row" fxLayoutAlign="space-between none">
     <button md-button color="accent" (click)="dialogRef.close()">cancel</button>
-    <button md-raised-button color="primary" (click)="add(form.value)" [disabled]="!form.valid">submit</button>
+    <button *ngIf="!isEditMode; else elseBlock" md-raised-button color="primary" (click)="add(form.value)" [disabled]="!form.valid">submit</button>
+    <template #elseBlock>
+         <button md-raised-button color="primary" (click)="update(form.value)" [disabled]="!form.valid">save</button>
+    </template>
+   
   </section>
   
 </form>
