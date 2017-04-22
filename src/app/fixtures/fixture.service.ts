@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+
+import { Database } from '../database';
 
 @Injectable()
 export class FixtureService {
@@ -8,24 +9,24 @@ export class FixtureService {
     fixtures:() =>"/fixtures",
     fixturePlayers:(key) => `/fixturePlayers/${key}`
   }
-  constructor(private af: AngularFire) {
-    this.fixtures = this.af.database.list(FixtureService.paths.fixtures()) as FirebaseListObservable<any[]>;
+  constructor(private db: Database) {
+    this.fixtures = this.db.all(FixtureService.paths.fixtures());
   }
 
   add(fixture){
-    this.fixtures.push(fixture);
+    this.db.insert(fixture);
   }
 
-  delete(fixture){
-    this.fixtures.remove(fixture.key);
+  delete(key){
+    this.db.remove(key);
   }
 
   update(key,fixture){
-    this.fixtures.update(key,fixture);
+    this.db.update(key,fixture);
   }
 
   getPlayers(key){
-    return this.af.database.list(FixtureService.paths.fixturePlayers(key)) as FirebaseListObservable<any[]>;
+    return this.db.all(FixtureService.paths.fixturePlayers(key)) ;
   }
   
 }

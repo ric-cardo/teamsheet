@@ -12,6 +12,7 @@ import { Md2Module }  from 'md2';
 import { environment } from '../environments/environment'
 import { AppComponent } from './app.component';
 import { FixtureComponent,FixtureService, FixtureFormComponent } from './fixtures';
+import { Database,FirebaseDatabase } from './database';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,10 @@ import { FixtureComponent,FixtureService, FixtureFormComponent } from './fixture
     FlexLayoutModule,
     Md2Module.forRoot(),
   ],
-  providers: [FixtureService],
+  providers: [
+    { provide: Database, useClass: FirebaseDatabase },
+    FixtureService
+  ],
   bootstrap: [AppComponent],
   entryComponents:[FixtureFormComponent]
 })
