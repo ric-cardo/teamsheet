@@ -4,16 +4,18 @@ import { TestBed, async, tick, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
+import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { FixtureService, FixtureFormComponent } from './fixtures';
+import { ConfirmComponent } from './confirm';
 
 class  FixtureServiceStub {
     _fixtures = [ 
-      {id:1, opponent:'team1', date:'sat 14 jan'},
-      {id:2, opponent:'team2', date:'sat 21 jan'}
+      {$key:1, opponent:'team1', date:'sat 14 jan'},
+      {$key:2, opponent:'team2', date:'sat 21 jan'}
     ];
     subject = new BehaviorSubject(this._fixtures);
     fixtures = this.subject.asObservable();
@@ -23,14 +25,14 @@ class  FixtureServiceStub {
       this.subject.next(this._fixtures);
     }
 
-    delete(fixture){
-      this._fixtures = this._fixtures.filter(f => f.id !== fixture.id);
+    delete($key){
+      this._fixtures = this._fixtures.filter(f => f.$key !== $key);
       this.subject.next(this._fixtures);
     }
 
     update(fixture){
       this._fixtures.forEach(f => {
-        if(f.id === fixture.id){
+        if(f.$key === fixture.$key){
           return Object.assign(f,fixture);
         }
 
@@ -47,7 +49,8 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        FixtureFormComponent
+        FixtureFormComponent,
+        ConfirmComponent
       ],
       imports: [
         BrowserAnimationsModule,
@@ -102,11 +105,15 @@ describe('AppComponent', () => {
       })   
   }));
 
-  it('deleteFixture() should delete a fixture from the list ', async(() => {
+  it('deleteFixture() should delete a fixture from the list when confirmation confirmed ', async(() => {
     let app = TestBed.createComponent(AppComponent);
     let component = app.debugElement.componentInstance;
     let fixtures;
-
+    
+    spyOn(component.dialog,'open').and.returnValue(
+      {afterClosed:() => Observable.of(ConfirmComponent.OK)}
+    )
+    
     component.ngOnInit();
 
     component.fixtures$
@@ -115,13 +122,38 @@ describe('AppComponent', () => {
       })
       .unsubscribe(); 
 
-    component.deleteFixture({id:1, opponent:'team1', date:'sat 14 jan'});
+    component.deleteFixture({$key:1, opponent:'team1', date:'sat 14 jan'});
     app.detectChanges();
 
     component.fixtures$.subscribe(fixtures =>{
       expect(fixtures.length).toBe(1);
       expect(fixtures[0].opponent).toBe('team2');
       expect(fixtures[0].date).toBe('sat 21 jan');
+    })   
+  }));
+
+  it('deleteFixture() should not delete a fixture from the list when confirmation cancelled ', async(() => {
+    let app = TestBed.createComponent(AppComponent);
+    let component = app.debugElement.componentInstance;
+    let fixtures;
+    
+    spyOn(component.dialog,'open').and.returnValue(
+      {afterClosed:() => Observable.of(ConfirmComponent.CANCEL)}
+    )
+    
+    component.ngOnInit();
+
+    component.fixtures$
+      .subscribe(fixtures =>{
+        expect(fixtures.length).toBe(2);
+      })
+      .unsubscribe(); 
+
+    component.deleteFixture({$key:1, opponent:'team1', date:'sat 14 jan'});
+    app.detectChanges();
+
+    component.fixtures$.subscribe(fixtures =>{
+      expect(fixtures.length).toBe(2);
     })   
   }));
   

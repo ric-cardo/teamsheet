@@ -18,7 +18,11 @@
                     <div>{{fixture.date | date:'d MMM'}}</div>
                 </template>
                 <md-tab-body origin="0" postion="1">
-                    <app-fixture [fixture]='fixture' (edit)="showFixtureForm($event)"></app-fixture>
+                    <app-fixture 
+                        [fixture]='fixture' 
+                        (edit)="showFixtureForm($event)"
+                        (delete)="deleteFixture($event)"
+                    ></app-fixture>
                 </md-tab-body>
             </md-tab>
         </md-tab-group>
