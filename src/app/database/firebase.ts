@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 import { DBAdapter } from './database';
 
 @Injectable()
 export class FirebaseDatabase implements DBAdapter{
   fixtures;
-  constructor(private af: AngularFire){}
+  constructor(private af: AngularFireDatabase){}
 
   all(path){
-    return this.fixtures = this.af.database.list(path) as FirebaseListObservable<any[]>;
+    return this.fixtures = this.af.list(path) as FirebaseListObservable<any[]>;
   }
 
   insert(data){

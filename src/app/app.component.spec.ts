@@ -3,6 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core/';
 import { TestBed, async, tick, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { DatePipe } from '@angular/common';
 
 import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -56,7 +57,10 @@ describe('AppComponent', () => {
         BrowserAnimationsModule,
         MaterialModule,
       ],
-      providers: [{ provide: FixtureService, useClass: FixtureServiceStub }],
+      providers: [
+        DatePipe,
+        { provide: FixtureService, useClass: FixtureServiceStub }
+      ],
       schemas:[NO_ERRORS_SCHEMA],
     })
 

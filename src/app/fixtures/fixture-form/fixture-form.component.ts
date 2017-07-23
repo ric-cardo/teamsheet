@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import { MdDialogRef } from '@angular/material';
+import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+
 import { FixtureService } from '../fixture.service';
 
 @Component({
@@ -13,9 +14,12 @@ export class FixtureFormComponent implements OnInit {
   form: FormGroup;
   isEditMode;
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
+    public dialogRef: MdDialogRef<FixtureFormComponent>,
+    @Inject(MD_DIALOG_DATA) public dialogData: any,
     private fixtureService: FixtureService,
-    public dialogRef: MdDialogRef<FixtureFormComponent>
+
+
   ) { }
 
   ngOnInit() {
@@ -23,10 +27,10 @@ export class FixtureFormComponent implements OnInit {
     const model  = Object.assign(
       {},
       this.getDefaultValues(),
-      this.dialogRef.config.data
+      this.dialogData
     );
 
-    this.isEditMode = this.dialogRef.config.data && this.dialogRef.config.data.hasOwnProperty('$key');
+    this.isEditMode = this.dialogData && this.dialogData.hasOwnProperty('$key');
     
     this.form = this.fb.group({
       opponent: [model.opponent, Validators.required],
@@ -57,7 +61,7 @@ export class FixtureFormComponent implements OnInit {
        formData.date =  formData.date.getTime();
     }
    
-    this.fixtureService.update(this.dialogRef.config.data.$key,formData);
+    this.fixtureService.update(this.dialogData.$key,formData);
     this.dialogRef.close();
   }
 }

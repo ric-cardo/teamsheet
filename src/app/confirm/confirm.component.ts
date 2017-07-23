@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 
-import { MdDialogRef } from '@angular/material';
+import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 @Component({
   selector: 'app-confirm',
   templateUrl: './confirm.component.html',
@@ -17,7 +17,8 @@ export class ConfirmComponent implements OnInit {
   }
   
   constructor(
-    public dialogRef: MdDialogRef<ConfirmComponent>
+    public dialogRef: MdDialogRef<ConfirmComponent>,
+    @Inject(MD_DIALOG_DATA) public dialogData: any,
   ) { }
 
   get cancel(){
@@ -28,7 +29,7 @@ export class ConfirmComponent implements OnInit {
   }
 
   ngOnInit() {
-    const {title,content,buttons} = this.dialogRef.config.data;
+    const {title,content,buttons} = this.dialogData;
     this.title = title;
     this.content = content;
     this.buttons = Object.assign({},this.buttons,buttons);

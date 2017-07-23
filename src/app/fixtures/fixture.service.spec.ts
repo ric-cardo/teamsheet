@@ -1,7 +1,8 @@
+import { QueryReference } from 'angularfire2/interfaces';
 /* tslint:disable:no-unused-variable */
 import { TestBed, async, inject } from '@angular/core/testing';
 
-import { FirebaseListObservable } from 'angularfire2';
+import { FirebaseListObservable } from 'angularfire2/database';
 
 import { FixtureService } from './fixture.service';
 
@@ -11,7 +12,7 @@ class MockFirebase implements DBAdapter {
   constructor(){}
     insert(){}
     all(){
-      return new FirebaseListObservable({endAt:(y)=>{}} as firebase.database.Query);
+      return new FirebaseListObservable({} as QueryReference);
     }
     remove(key){}
     update(key,fixture){}

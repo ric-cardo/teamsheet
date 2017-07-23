@@ -8,16 +8,18 @@ import { FixtureFormComponent } from './fixture-form.component';
 
 describe('FixtureFormComponent', () => {
   let component: FixtureFormComponent;
-  let dialogRef;
+  let dialogRef,dialogData;
   let fixtureService :any = { add(){}, update(){} };
 
   beforeEach(() => {
     const formbuilder = new FormBuilder();
-    dialogRef = {close(){}, config:{}};
+    dialogRef = {close(){}};
+    dialogData = {};
     component = new FixtureFormComponent(
       formbuilder,
+      dialogRef as MdDialogRef<FixtureFormComponent>,
+      dialogData,
       fixtureService as FixtureService,
-      dialogRef as MdDialogRef<FixtureFormComponent>
     );
   });
 
@@ -41,7 +43,7 @@ describe('FixtureFormComponent', () => {
     };
     let formData;
 
-    component.dialogRef.config.data = Object.assign({},expectFormData)
+    component.dialogData = Object.assign({},expectFormData)
     component.ngOnInit();
     formData = component.form.value;
    
@@ -57,7 +59,7 @@ describe('FixtureFormComponent', () => {
       $key:'123'
     };
 
-    component.dialogRef.config.data = Object.assign({},expectFormData)
+    component.dialogData = Object.assign({},expectFormData)
     component.ngOnInit();
    
     expect(component.isEditMode).toBeTruthy();
@@ -256,7 +258,7 @@ describe('FixtureFormComponent', () => {
 
       const key = 123
     
-      component.dialogRef.config.data = Object.assign({$key:key},expectFormData)
+      component.dialogData = Object.assign({$key:key},expectFormData)
       component.ngOnInit();
       
       spyOn(fixtureService,'update');
@@ -275,7 +277,7 @@ describe('FixtureFormComponent', () => {
       const key = 123
       spyOn(dialogRef,'close');
 
-      component.dialogRef.config.data = {$key:key}
+      component.dialogData = {$key:key}
       component.ngOnInit();
 
       component.update({

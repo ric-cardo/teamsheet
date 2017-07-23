@@ -84,7 +84,7 @@ describe('FixtureComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MaterialModule.forRoot()],
+      imports: [MaterialModule],
       declarations: [ FixtureComponent,TestHostComponent ],
       providers: [{ provide: FixtureService, useClass: FixtureServiceStub }],
     })

@@ -1,5 +1,5 @@
 import { asNativeElements } from '@angular/core/core';
-import { MaterialModule,MdDialogRef } from '@angular/material';
+import { MaterialModule,MdDialogRef,MD_DIALOG_DATA } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core/';
@@ -19,7 +19,9 @@ describe('ConfirmComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ConfirmComponent ],
       imports:[BrowserAnimationsModule,MaterialModule],
-      providers:[{ provide: MdDialogRef, useValue: {config:{data:dialogData}} }],
+      providers:[
+        { provide: MdDialogRef, useValue: {} },
+        { provide: MD_DIALOG_DATA, useValue: dialogData} ],
       schemas:[NO_ERRORS_SCHEMA]
     })
     .compileComponents();
@@ -61,7 +63,7 @@ describe('ConfirmComponent', () => {
   })
 
   it('should display configurable ok button label',()=>{
-    component.dialogRef.config.data.buttons.ok = 'CUSTOM_LABEL';
+    component.dialogData.buttons.ok = 'CUSTOM_LABEL';
     fixture.detectChanges();
     const actual = el.querySelector('[ok-button]').textContent;
     const expected = 'CUSTOM_LABEL';
@@ -77,7 +79,7 @@ describe('ConfirmComponent', () => {
   })
 
   it('should display configurable cancel button label',()=>{
-    component.dialogRef.config.data.buttons.cancel = 'CUSTOM_LABEL';
+    component.dialogData.buttons.cancel = 'CUSTOM_LABEL';
     fixture.detectChanges();
     const actual = el.querySelector('[cancel-button]').textContent;
     const expected = 'CUSTOM_LABEL';
