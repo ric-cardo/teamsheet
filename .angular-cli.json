@@ -20,7 +20,8 @@
       "prefix": "app",
       "styles": [
         "app/app.theme.scss",
-        "styles.scss"
+        "styles.scss",
+        "../node_modules/firebaseui/dist/firebaseui.css"
       ],
       "scripts": [
       ],

@@ -6,8 +6,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
 
 import { AngularFireModule } from 'angularfire2';
+import { 
+  AuthMethods, 
+  AuthProvider, 
+  FirebaseUIAuthConfig, 
+  FirebaseUIModule, 
+  AuthProviderWithCustomConfig 
+} from 'firebaseui-angular';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Md2Module }  from 'md2';
 
@@ -17,6 +24,15 @@ import { FixtureComponent,FixtureService, FixtureFormComponent } from './fixture
 import { Database,FirebaseDatabase } from './database';
 import { ComponentsModule} from './components';
 import { ConfirmComponent } from './confirm';
+
+const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
+  providers: [
+    AuthProvider.Google,
+    AuthProvider.Password,
+  ],
+  method: AuthMethods.Popup,
+  tos: '<your-tos-link>'
+};
 
 @NgModule({
   declarations: [
@@ -33,6 +49,8 @@ import { ConfirmComponent } from './confirm';
     ComponentsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     FlexLayoutModule,
     Md2Module.forRoot(),
   ],

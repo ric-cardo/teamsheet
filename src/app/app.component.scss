@@ -1,3 +1,9 @@
+:host(){
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 md-toolbar{
   box-shadow: 0 3px 5px -1px rgba(0,0,0,.2);
 }
@@ -12,3 +18,22 @@ md-tab-group /deep/ .mat-tab-label.mat-tab-label-active{
     color: white;
     opacity:0.8;
 }
+
+firebase-ui /deep/ {
+  #firebaseui-auth-container{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .firebaseui-idp-password,  {
+      background-color: #fff;
+      box-shadow: none;
+      
+      .firebaseui-idp-text{
+        color:rgba(0, 0, 0, 0.2);
+      }
+  }
+}
+ 

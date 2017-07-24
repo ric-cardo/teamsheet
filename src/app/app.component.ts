@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { MdDialog, MdDialogRef } from '@angular/material';
+import { AngularFireAuth} from 'angularfire2/auth';
 
 import { FixtureService, FixtureFormComponent } from './fixtures';
 import { ConfirmComponent } from './confirm';
@@ -13,15 +14,35 @@ import { ConfirmComponent } from './confirm';
 })
 export class AppComponent implements OnInit {
   fixtures$;
+  user = undefined
 
   constructor(
-    public fixtureService: FixtureService,
     public dialog: MdDialog,
-    public datePipe: DatePipe
+    public datePipe: DatePipe,
+    private angularFireAuth: AngularFireAuth,
+    public fixtureService: FixtureService,
   ){}
 
   ngOnInit(){
     this.fixtures$ = this.fixtureService.fixtures;
+    this.angularFireAuth.authState.subscribe(user =>this.firebaseAuthChangeListener(user));
+
+  }
+
+  private firebaseAuthChangeListener(user) {
+    if (user) {
+      this.user =  Object.assign({},{
+          name:user.displayName,
+          uid:user.uid,
+          image:user.photoURL
+      })
+    } else {
+      this.user = undefined;
+    }
+  }
+
+  logout(){
+    this.angularFireAuth.auth.signOut();
   }
 
   addFixture(fixture){

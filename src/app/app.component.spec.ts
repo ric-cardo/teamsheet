@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { MaterialModule } from '@angular/material';
+import { AngularFireAuth} from 'angularfire2/auth';
 
 import { AppComponent } from './app.component';
 import { FixtureService, FixtureFormComponent } from './fixtures';
@@ -58,6 +59,7 @@ describe('AppComponent', () => {
         MaterialModule,
       ],
       providers: [
+        { provide: AngularFireAuth, useValue: {authState: Observable.of({})} },
         DatePipe,
         { provide: FixtureService, useClass: FixtureServiceStub }
       ],
