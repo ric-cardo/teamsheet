@@ -1,9 +1,12 @@
 <header *ngIf="user">
     <md-toolbar color='primary'>
-        <button type="button" md-icon-button (click)="sidenav.toggle()">
-            <md-icon>menu</md-icon>
-        </button>
-
+        <button type="button" md-icon-button [mdMenuTriggerFor]="appMenu">
+            <md-icon>account_circle</md-icon>   
+        </button> 
+        
+        <md-menu #appMenu="mdMenu" [overlapTrigger]="false">
+            <button md-menu-item (click)="logout()"> log out </button>
+        </md-menu>
         <button
             class="add-fixture"
             md-button 
@@ -17,29 +20,19 @@
 
 <main>
     <firebase-ui *ngIf="!user"></firebase-ui>
-    <md-sidenav-container>
-        <md-sidenav #sidenav>
-            <md-list>
-                <md-list-item (click)="logout()">
-                    logout
-                </md-list-item>
-            </md-list>
-        </md-sidenav>
-
-        <section *ngIf="user">
-            <md-tab-group>
-                <md-tab *ngFor="let fixture of fixtures$ | async">
-                    <template md-tab-label>
-                        <div>{{fixture.date | date:'EEE' }}</div>
-                        <div>{{fixture.date | date:'d MMM'}}</div>
-                    </template>
-                        <app-fixture 
-                            [fixture]='fixture' 
-                            (edit)="showFixtureForm($event)"
-                            (delete)="deleteFixture($event)"
-                        ></app-fixture>
-                </md-tab>
-            </md-tab-group>
-        </section>
-    </md-sidenav-container>
+    <section *ngIf="user">
+        <md-tab-group>
+            <md-tab *ngFor="let fixture of fixtures$ | async">
+                <template md-tab-label>
+                    <div>{{fixture.date | date:'EEE' }}</div>
+                    <div>{{fixture.date | date:'d MMM'}}</div>
+                </template>
+                    <app-fixture 
+                        [fixture]='fixture' 
+                        (edit)="showFixtureForm($event)"
+                        (delete)="deleteFixture($event)"
+                    ></app-fixture>
+            </md-tab>
+        </md-tab-group>
+    </section>
 </main>
