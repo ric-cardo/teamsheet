@@ -1,7 +1,10 @@
 <md-card>
   <md-card-header fxLayout="row" fxLayoutAlign="space-between stretch">
-    <md-card-title>{{fixture.opponent}}</md-card-title>
-    <md-card-subtitle>{{fixture.date}}</md-card-subtitle>
+    <md-card-title class="u-capitalize fixture-opponent">{{fixture.opponent}}</md-card-title>
+    <md-card-subtitle class="u-capitalize">{{fixture.address}}</md-card-subtitle>
+    <md-card-subtitle fxLayout="row" >
+      <p class="fixture-time">{{fixture.date | date:'HH:MM'}}</p>
+    </md-card-subtitle>
     <section>
       <button
         class="delete-button" 

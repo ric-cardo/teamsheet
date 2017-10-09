@@ -1,12 +1,26 @@
+@import '~@angular/material/theming';
+// Import your custom theme
+@import 'src/app/app.theme.scss';
+md-card{
+    padding-top: 12px;
+}
 md-card-header{
     padding: 0.5em;
-    height: 60px;
+    height: 80px;
+}
+.fixture-opponent{
+    font-size:1em;
+    font-weight:bold;
+}
+
+.fixture-time{
+    padding: 0.5em;
+    background-color: #dbdbdb;
+    color: #5a5a5a;
+    font-weight: bold;
 }
 
 md-card-content{
-    border-top: 1px solid;
-    border-bottom: 1px solid;
-    border-color: rgba(224, 224, 224, 0.5);
     padding-top:1em;
     min-height: 50vh;
 }
@@ -36,8 +50,8 @@ md-button-toggle{
     text-align: center;
 }
 
-.mat-button-toggle-checked {
-    background-color: #FFEB3B;
+.selected {
+    background-color: mat-color($primary);
 }
 
 md-button-toggle >>> .mat-button-toggle-label-content{
@@ -45,4 +59,28 @@ md-button-toggle >>> .mat-button-toggle-label-content{
     width:100%;
 }
 
+md-list,md-grid-list{
+    max-height: 50vh;
+    overflow-y: scroll;
+}
+
+md-grid-list{
+    flex:2
+}
+
+.player-list{
+    header{
+        border-bottom: 1px solid #ddd;
+        font-size: 0.75em;
+    }
+}
+
+.no-list{
+    opacity: 0.3;
+    border-left:2px solid #ddd;
+
+    img{
+        filter: grayscale(100%);
+    }
+}
 

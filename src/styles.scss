@@ -7,6 +7,22 @@ html,body{
     margin: 0;
 }
 
+*{
+    margin:0;
+}
+
+.u-capitalize{
+    text-transform: capitalize;
+}
+
+.u-full-w{
+    width: 100% !important;
+}
+
+.u-text-c{
+    text-align: center
+}
+
 .cdk-overlay-container{
     font-family:Roboto,Helvetica Neue,sans-serif;
     
