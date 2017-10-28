@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { AngularFireAuth} from 'angularfire2/auth';
+import * as closestIndexTo from 'date-fns/closest_index_to';
 
 import { FixtureService, FixtureFormComponent } from './fixtures';
 import { ConfirmComponent } from './confirm';
@@ -15,6 +16,7 @@ import { ConfirmComponent } from './confirm';
 export class AppComponent implements OnInit {
   fixtures$;
   user = undefined
+  selectedTabIndex;
 
   constructor(
     public dialog: MdDialog,
@@ -24,7 +26,15 @@ export class AppComponent implements OnInit {
   ){}
 
   ngOnInit(){
-    this.fixtures$ = this.fixtureService.fixtures;
+    this.fixtures$ = this.fixtureService.fixtures.do(fixtures =>{
+      // prevent expression error
+      setTimeout(_ =>{
+        const now = new Date();
+        const dates = fixtures.map(fixture => fixture.date);
+        this.selectedTabIndex = closestIndexTo(now,dates);
+      },0)
+     
+    })
     this.angularFireAuth.authState.subscribe(user =>this.firebaseAuthChangeListener(user));
 
   }

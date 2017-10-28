@@ -21,7 +21,7 @@
 <main>
     <firebase-ui *ngIf="!user"></firebase-ui>
     <section *ngIf="user">
-        <md-tab-group>
+        <md-tab-group [selectedIndex]=selectedTabIndex>
             <md-tab *ngFor="let fixture of fixtures$ | async">
                 <template md-tab-label>
                     <div>{{fixture.date | date:'EEE' }}</div>
