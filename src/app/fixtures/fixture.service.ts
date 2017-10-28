@@ -12,7 +12,9 @@ export class FixtureService {
   }
 
   constructor(private db: Database) {
-    this.fixtures = this.db.all(FixtureService.paths.fixtures());
+    this.fixtures = this.db.all(FixtureService.paths.fixtures(),{
+      orderByChild: 'date'
+    });
   }
   
   add(fixture){
