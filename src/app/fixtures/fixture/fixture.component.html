@@ -38,16 +38,19 @@
     </md-grid-list>    
   </md-card-content>
 
-  <md-card-actions fxLayout="column" fxLayoutAlign="center center">
-      <md-card-subtitle>playing ?</md-card-subtitle>
-        <md-button-toggle-group [value]="availability" (change)="setAvailability($event)">
-          <md-button-toggle value="1" color="accent">
-            <md-icon>check</md-icon>
-          </md-button-toggle>
-          <md-button-toggle value="0" color="accent">
-            <md-icon>close</md-icon>
-          </md-button-toggle>
-      </md-button-toggle-group>
+        <md-card-subtitle class="u-full-w u-text-c u-capitalize">can you play?</md-card-subtitle>
+  <md-card-actions fxLayout="row" >
+    <button 
+      fxFlex 
+      md-raised-button
+      (click)="setAvailability(true)"
+      [ngClass]="{'selected': isAvailible}"
+    >
+         <md-icon>check</md-icon>
+    </button>
+    <button [ngClass]="{'selected': !isAvailible && hasAnswered}" fxFlex type="button" md-raised-button  (click)="setAvailability(false)">
+         <md-icon>close</md-icon>
+    </button>
    </md-card-actions>
 
 </md-card>

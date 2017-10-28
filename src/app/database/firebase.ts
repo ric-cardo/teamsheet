@@ -9,8 +9,8 @@ export class FirebaseDatabase implements DBAdapter{
   fixtures;
   constructor(private af: AngularFireDatabase){}
 
-  all(path){
-    return this.fixtures = this.af.list(path) as FirebaseListObservable<any[]>;
+  all(path,query={}){
+    return this.af.list(path,{query});
   }
 
   insert(data){
@@ -23,5 +23,9 @@ export class FirebaseDatabase implements DBAdapter{
 
   update(key,fixture){
     this.fixtures.update(key,fixture);
+  }
+
+  instance(){
+    return this.af;
   }
 }

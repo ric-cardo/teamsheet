@@ -28,5 +28,13 @@ export class FixtureService {
   getPlayers(key){
     return this.db.all(FixtureService.paths.fixturePlayers(key)) ;
   }
+
+  setAvailability(user,isAvailable,fixture){
+    this.db.instance()
+      .object(FixtureService.paths.fixturePlayers(fixture.$key)+`/${user.uid}`)
+      .update(Object.assign({},user,{isAvailable}));
+    
+
+  }
   
 }

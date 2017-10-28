@@ -27,7 +27,8 @@
                     <div>{{fixture.date | date:'EEE' }}</div>
                     <div>{{fixture.date | date:'d MMM'}}</div>
                 </template>
-                    <app-fixture 
+                    <app-fixture
+                        [user]="user" 
                         [fixture]='fixture' 
                         (edit)="showFixtureForm($event)"
                         (delete)="deleteFixture($event)"

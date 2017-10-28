@@ -9,6 +9,7 @@ import { FixtureService } from '../fixture.service';
 })
 export class FixtureComponent implements OnInit {
   @Input() fixture;
+  @Input() user;
  
   @Output() yes = new EventEmitter();
   @Output() no = new EventEmitter();
@@ -16,20 +17,39 @@ export class FixtureComponent implements OnInit {
   @Output() edit = new EventEmitter();
 
   availability;
-  players$;
+  players = {
+    available:[],
+    unavailable:[]
+  }
+  isAvailable;
+  hasAnswered;
 
   constructor(private fixtureService:FixtureService) { }
 
   ngOnInit() {
-    this.players$ = this.fixtureService.getPlayers(this.fixture.$key)
+    this.fixtureService.getPlayers(this.fixture.$key)
+      .subscribe((players:Array<any>)=>{
+        this.players.available = players.filter( p => p.isAvailable)
+        this.players.unavailable = players.filter(p => !p.isAvailable)
+        this.getAvailability(players);
+        
+      })
   }
 
-  setAvailability(isAvailible){
-    if(parseInt(isAvailible.value)){
-      this.yes.emit();
+  setAvailability(isAvailable){
+      this.fixtureService.setAvailability(this.user,isAvailable,this.fixture)
+  }
+
+  getAvailability(players){
+    const player = players.filter(p =>p.$key === this.user.uid).shift();
+    if(player){
+       this.isAvailable = player.isAvailable;
+       this.hasAnswered = true;
     }
     else{
-      this.no.emit();
+      this.isAvailable = false;
+      this.hasAnswered = false;
     }
   }
+
 }
