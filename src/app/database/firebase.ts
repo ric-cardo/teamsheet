@@ -6,23 +6,22 @@ import { DBAdapter } from './database';
 
 @Injectable()
 export class FirebaseDatabase implements DBAdapter{
-  fixtures;
   constructor(private af: AngularFireDatabase){}
 
-  all(path,query={}){
-    return this.af.list(path,{query});
+  all(key,query={}){
+    return this.af.list(key,{query});
   }
 
-  insert(data){
-    this.fixtures.push(data);
+  insert(key,data){
+    this.af.list(key).push(data);
   }
 
   remove(key){
-    this.fixtures.remove(key);
+    this.af.list(key).remove();
   }
 
-  update(key,fixture){
-    this.fixtures.update(key,fixture);
+  update(key,id,fixture){
+    this.af.list(key).update(id,fixture);
   }
 
   instance(){

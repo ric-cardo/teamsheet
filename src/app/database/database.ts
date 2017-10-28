@@ -1,24 +1,23 @@
 import { Observable } from 'rxjs/Rx';
 
 export interface DBAdapter{
-  all(path,query):Observable<any>;
-  insert(data);
-  update(id,data);
-  remove(id);
+  all(key,query?):Observable<any>;
+  insert(key,data);
+  update(key,id,data);
+  remove(key,id);
   instance();
 }
 
 export class Database implements DBAdapter{
-  fixtures;
 
-  insert(data){}
+  insert(key,data){}
 
-  all(path,query){
-    return Observable.of(this.fixtures);
+  all(key,query?){
+    return Observable.of();
   }
 
-  update(id,data){};
-  remove(id){};
+  update(key,id,data){};
+  remove(key){};
   instance() :any{
     return {};
   };

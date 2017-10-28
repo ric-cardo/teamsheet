@@ -8,7 +8,7 @@ import { FixtureService } from './fixture.service';
 
 import { DBAdapter } from '../database';
 
-class MockFirebase implements DBAdapter {
+class MockFirebase  {
   constructor(){}
     insert(){}
     all(){
@@ -16,6 +16,9 @@ class MockFirebase implements DBAdapter {
     }
     remove(key){}
     update(key,fixture){}
+    getPlayers(key){
+      return new FirebaseListObservable({} as QueryReference);
+    }
 }
 describe('FixtureService', () => {
   let service;
@@ -37,29 +40,29 @@ describe('FixtureService', () => {
   
   it('should add a fixture to firebase database', () => {
     const fixture = { opponent:'team1', date:'sat 14 jan'};
-    spyOn(service.db,'insert');
+    spyOn(service.fixtures,'push');
     
     service.add(fixture);
 
-    expect(service.db.insert).toHaveBeenCalledWith(fixture);
+    expect(service.fixtures.push).toHaveBeenCalledWith(fixture);
   });
 
   it('should remove a fixture from firebase database', () => {
     const fixture = { $key:'1',opponent:'team1', date:'sat 14 jan'};
-    spyOn(service.db,'remove');
+    spyOn(service.fixtures,'remove');
     
     service.delete(fixture.$key);
 
-    expect(service.db.remove).toHaveBeenCalledWith(fixture.$key);
+    expect(service.fixtures.remove).toHaveBeenCalledWith(fixture.$key);
   });
 
   it('should update a fixture in firebase database', () => {
     const fixture = { key:'1',opponent:'team1', date:'sat 14 jan'};
-    spyOn(service.db,'update');
+    spyOn(service.fixtures,'update');
     
     service.update(fixture.key,fixture);
 
-    expect(service.db.update).toHaveBeenCalledWith(fixture.key,fixture);
+    expect(service.fixtures.update).toHaveBeenCalledWith(fixture.key,fixture);
   });
 
   it('getPlayers should return players Observable', () => {
@@ -68,10 +71,10 @@ describe('FixtureService', () => {
     let sub:any;
     spyOn(service.db,'all').and.callThrough();
 
-    sub = service.getPlayers(key);
+    sub = service.getPlayers(key,{});
 
     expect(sub instanceof FirebaseListObservable).toBe(true);
-    expect(service.db.all).toHaveBeenCalledWith(expectedRef)
+    expect(service.db.all).toHaveBeenCalledWith(expectedRef,jasmine.any(Object))
   });
     
 });
