@@ -17,6 +17,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Md2Module }  from 'md2';
+import { AngularFireOfflineModule } from 'angularfire2-offline';
 
 import { environment } from '../environments/environment'
 import { AppComponent } from './app.component';
@@ -50,6 +51,7 @@ const firebaseUiAuthConfig: FirebaseUIAuthConfig = {
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    AngularFireOfflineModule,
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     FlexLayoutModule,
     Md2Module.forRoot(),

@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
+import {
+  AfoListObservable,
+  AfoObjectObservable,
+  AngularFireOfflineDatabase } from 'angularfire2-offline/database';
 import { DBAdapter } from './database';
 
 @Injectable()
 export class FirebaseDatabase implements DBAdapter{
-  constructor(private af: AngularFireDatabase){}
+  constructor(private af: AngularFireOfflineDatabase){}
 
   all(key,query={}){
     return this.af.list(key,{query});
