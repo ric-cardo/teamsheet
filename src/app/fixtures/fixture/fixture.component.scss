@@ -3,11 +3,14 @@
 @import 'src/app/app.theme.scss';
 md-card{
     padding-top: 12px;
+    margin-top: 0.5em;
 }
+
 md-card-header{
     padding: 0.5em;
     height: 80px;
 }
+
 .fixture-opponent{
     font-size:1em;
     font-weight:bold;
@@ -20,9 +23,14 @@ md-card-header{
     font-weight: bold;
 }
 
-md-card-content{
-    padding-top:1em;
+.squad{
     min-height: 50vh;
+}
+
+.squad /deep/ .mat-tab-label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .player img{
@@ -35,52 +43,9 @@ md-card-content{
 .player-name{
     margin-top: 0;
     font-size: 0.85em;
-}
-
-md-card-actions{
-    margin:0;
-}
-
-md-button-toggle-group{
-    width:100%;
-}
-
-md-button-toggle{
-    flex:1;
-    text-align: center;
+    height: 2rem;
 }
 
 .selected {
     background-color: mat-color($primary);
 }
-
-md-button-toggle >>> .mat-button-toggle-label-content{
-    padding:0;
-    width:100%;
-}
-
-md-list,md-grid-list{
-    max-height: 50vh;
-    overflow-y: scroll;
-}
-
-md-grid-list{
-    flex:2
-}
-
-.player-list{
-    header{
-        border-bottom: 1px solid #ddd;
-        font-size: 0.75em;
-    }
-}
-
-.no-list{
-    opacity: 0.3;
-    border-left:2px solid #ddd;
-
-    img{
-        filter: grayscale(100%);
-    }
-}
-
