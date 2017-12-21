@@ -1,32 +1,45 @@
 import { Injectable } from '@angular/core';
 
+import { Subject } from 'rxjs/Subject';
+
 import { Database } from '../database';
 
 @Injectable()
 export class FixtureService {
-  fixtures
+  fixtures: Subject<any>;
 
   static paths = {
-    fixtures:() =>"/fixtures",
+    fixtures:(tid) =>`/fixtures/${tid}`,
     fixturePlayers:(key) => `/fixturePlayers/${key}`
   }
 
   constructor(private db: Database) {
-    this.fixtures = this.db.all(FixtureService.paths.fixtures(),{
-      orderByChild: 'date'
-    });
+    this.fixtures = new Subject();
   }
   
-  add(fixture){
-    this.fixtures.push(fixture);
+  getFixtures(teamId){
+    this.db.instance().list(FixtureService.paths.fixtures(teamId), {
+      query: {
+        orderByChild: 'date'
+      }
+    })
+    .subscribe((fixtures) => this.fixtures.next(fixtures))
   }
 
-  delete(key){
-    this.fixtures.remove(key);
+  add(teamId,fixture){
+    const ref = FixtureService.paths.fixtures(teamId);
+    this.db.insert(ref,fixture);
   }
 
-  update(key,fixture){
-    this.fixtures.update(key,fixture);
+  delete(teamId,fixtureKey){
+    this.db.remove(
+      FixtureService.paths.fixtures(teamId),
+      fixtureKey
+    );
+  }
+
+  update(teamId,fixtureId,data){
+    this.db.update(`fixtures/${teamId}`,fixtureId,data)
   }
 
   getPlayers(key){

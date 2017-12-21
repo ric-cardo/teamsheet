@@ -27,10 +27,10 @@ export class FixtureFormComponent implements OnInit {
     const model  = Object.assign(
       {},
       this.getDefaultValues(),
-      this.dialogData
+      this.dialogData.fixture
     );
 
-    this.isEditMode = this.dialogData && this.dialogData.hasOwnProperty('$key');
+    this.isEditMode = this.dialogData && this.dialogData.fixture.hasOwnProperty('$key');
     
     this.form = this.fb.group({
       opponent: [model.opponent, Validators.required],
@@ -51,17 +51,20 @@ export class FixtureFormComponent implements OnInit {
 
   add(formData){
     formData.date = formData.date.getTime();
-    this.fixtureService.add(formData);
+    this.fixtureService.add(this.dialogData.teamId,formData);
     this.dialogRef.close();
   }
 
   update(formData){
-
     if(typeof formData.date.getTime === 'function'){
        formData.date =  formData.date.getTime();
     }
-   
-    this.fixtureService.update(this.dialogData.$key,formData);
+    
+    this.fixtureService.update(
+      this.dialogData.teamId,
+      this.dialogData.fixture.$key,
+      formData
+    );
     this.dialogRef.close();
   }
 }

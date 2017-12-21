@@ -10,7 +10,8 @@ export const environment = {
     authDomain: "node-2a9ca.firebaseapp.com",
     databaseURL: "https://node-2a9ca.firebaseio.com",
     storageBucket: "node-2a9ca.appspot.com",
-    messagingSenderId: "804021294410"
+    messagingSenderId: "804021294410",
+    functions:"http://192.168.1.10:5000/node-2a9ca/us-central1",
   }
 
 };

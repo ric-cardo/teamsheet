@@ -7,10 +7,22 @@
         <md-menu #appMenu="mdMenu" [overlapTrigger]="false">
             <button md-menu-item (click)="logout()"> log out </button>
         </md-menu>
+        <md-select class="team-selector" 
+            placeholder="select team"
+            floatPlaceholder="never" 
+            [(ngModel)]="teamId"
+        >
+            <md-option *ngFor="let team of teams$ | async"
+                [value]="team.$key"
+                (click)="switchTeam(team.$key)">
+                {{team.name}}
+            </md-option>
+            <md-option (click)="showJoinForm()">join team</md-option>
+        </md-select>
         <button
             class="add-fixture"
             md-button 
-            (click)="showFixtureForm()"
+            (click)="showFixtureForm(teamId)"
         >
            add fixture
        </button>
@@ -21,8 +33,24 @@
 <main>
     <firebase-ui *ngIf="!user"></firebase-ui>
     <section *ngIf="user">
-        <md-tab-group [selectedIndex]=selectedTabIndex>
-            <md-tab *ngFor="let fixture of fixtures$ | async">
+        <section class="join-form" 
+            *ngIf="!hasTeam"
+            fxLayout="column" 
+            fxLayoutAlign="center none"
+        >
+        <md-input-container class="demo-full-width">
+            <input mdInput placeholder="enter team code" type="text" #code>
+        </md-input-container>
+            <button
+                color="primary"
+                md-raised-button 
+                (click)="joinTeam(code.value)"
+            >
+            join team
+        </button>
+        </section>
+        <md-tab-group *ngIf="hasTeam" [selectedIndex]=selectedTabIndex>
+            <md-tab *ngFor="let fixture of fixtures$ | async;">
                 <template md-tab-label>
                     <div>{{fixture.date | date:'EEE' }}</div>
                     <div>{{fixture.date | date:'d MMM'}}</div>
@@ -30,8 +58,8 @@
                     <app-fixture
                         [user]="user" 
                         [fixture]='fixture' 
-                        (edit)="showFixtureForm($event)"
-                        (delete)="deleteFixture($event)"
+                        (edit)="showFixtureForm(teamId,$event)"
+                        (delete)="deleteFixture(teamId,$event)"
                     ></app-fixture>
             </md-tab>
         </md-tab-group>

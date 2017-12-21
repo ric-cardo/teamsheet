@@ -15,6 +15,7 @@ import {
   MdRadioModule,
   MdSidenavModule,
   MdListModule,
+  MdSelectModule,
   
 } from '@angular/material';
 
@@ -31,7 +32,8 @@ const components = [
     MdCardModule,
     MdRadioModule,
     MdSidenavModule,
-    MdListModule, 
+    MdListModule,
+    MdSelectModule, 
 ]
 
 import 'hammerjs';

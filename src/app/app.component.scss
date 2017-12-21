@@ -15,6 +15,12 @@ md-tab-group > /deep/ .mat-tab-body-wrapper{
   background-color: #e3e3e3
 }
 
+.join-form{
+  height:calc(100vh - 60px);
+  padding:1em;
+
+}
+
 .add-fixture{
   margin-left:auto;
   border:1px solid;
@@ -51,6 +57,10 @@ firebase-ui /deep/ {
         color:rgba(0, 0, 0, 0.2);
       }
   }
+}
+
+.team-selector{
+  margin-left: 1rem;
 }
 
 

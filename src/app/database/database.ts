@@ -4,7 +4,7 @@ export interface DBAdapter{
   all(key,query?):Observable<any>;
   insert(key,data);
   update(key,id,data);
-  remove(key,id);
+  remove(ref,key);
   instance();
 }
 
@@ -17,7 +17,7 @@ export class Database implements DBAdapter{
   }
 
   update(key,id,data){};
-  remove(key){};
+  remove(ref,key){};
   instance() :any{
     return {};
   };

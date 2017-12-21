@@ -19,8 +19,8 @@ export class FirebaseDatabase implements DBAdapter{
     this.af.list(key).push(data);
   }
 
-  remove(key){
-    this.af.list(key).remove();
+  remove(ref,key){
+    this.af.list(ref).remove(key);
   }
 
   update(key,id,fixture){
