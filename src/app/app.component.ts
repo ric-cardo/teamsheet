@@ -140,4 +140,5 @@ export class AppComponent implements OnInit {
     this.hasTeam = false;
   }
 
+  trackByFn(index, item) { return item.$key; }
 }

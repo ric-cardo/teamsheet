@@ -12,8 +12,8 @@
             floatPlaceholder="never" 
             [(ngModel)]="teamId"
         >
-            <md-option *ngFor="let team of teams$ | async"
-                [value]="team.$key"
+            <md-option *ngFor="let team of teams$ | async trackBy:trackByFn"
+                [value]="team"
                 (click)="switchTeam(team.$key)">
                 {{team.name}}
             </md-option>
@@ -50,7 +50,7 @@
         </button>
         </section>
         <md-tab-group *ngIf="hasTeam" [selectedIndex]=selectedTabIndex>
-            <md-tab *ngFor="let fixture of fixtures$ | async;">
+            <md-tab *ngFor="let fixture of fixtures$ | async; trackBy:trackByFn">
                 <template md-tab-label>
                     <div>{{fixture.date | date:'EEE' }}</div>
                     <div>{{fixture.date | date:'d MMM'}}</div>
