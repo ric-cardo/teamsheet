@@ -10,7 +10,7 @@
         <md-select class="team-selector" 
             placeholder="select team"
             floatPlaceholder="never" 
-            [(ngModel)]="teamId"
+            [(ngModel)]="team"
         >
             <md-option *ngFor="let team of teams$ | async trackBy:trackByFn"
                 [value]="team"
@@ -22,7 +22,7 @@
         <button
             class="add-fixture"
             md-button 
-            (click)="showFixtureForm(teamId)"
+            (click)="showFixtureForm(team.id)"
         >
            add fixture
        </button>
@@ -57,9 +57,10 @@
                 </template>
                     <app-fixture
                         [user]="user" 
-                        [fixture]='fixture' 
-                        (edit)="showFixtureForm(teamId,$event)"
-                        (delete)="deleteFixture(teamId,$event)"
+                        [fixture]='fixture'
+                        [team]='team' 
+                        (edit)="showFixtureForm(team.id,$event)"
+                        (delete)="deleteFixture(team.id,$event)"
                     ></app-fixture>
             </md-tab>
         </md-tab-group>

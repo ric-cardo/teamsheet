@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
   selectedTabIndex;
   teams$ =[];
   hasTeam;
-  teamId;
+  team;
   hasJoinedNewTeam = false;
 
   constructor(
@@ -63,12 +63,12 @@ export class AppComponent implements OnInit {
           orderByChild: 'name'
         }
       })
-      .do( res=>{
-        this.hasTeam = !!res.length
+      .do( teams => {
+        this.hasTeam = !!teams.length
         if(this.hasTeam){
-          const teamId = this.hasJoinedNewTeam ? res.length -1 : 0
-          this.switchTeam(res[teamId].id)
-          this.teamId = res[teamId].id
+          const index = this.hasJoinedNewTeam ? teams.length -1 : 0
+          this.switchTeam(teams[index].id)
+          this.team = teams[index]
         }
         this.hasJoinedNewTeam = false;
       })

@@ -1,52 +1,50 @@
-<div>
-  <md-card> 
-    <div class="details" fxLayout="row" fxLayoutAlign="space-between stretch">
-      <section>
-        <md-card-title class="u-capitalize fixture-opponent">{{fixture.opponent}}</md-card-title>
-        <md-card-subtitle class="u-capitalize">{{fixture.address}}</md-card-subtitle>
-      </section>
-      <section>
-          <p class="fixture-time">{{fixture.date | date:'HH:MM'}}</p>
-      </section>
+<div> 
+  <md-card>
+    <div class="details" fxLayout="row" fxLayoutAlign="center center">
+        <p class="u-capitalize fixture-opponent home-team truncate">{{homeTeam}}</p>
+        <p class="fixture-time">{{fixture.date | date:'HH:MM'}}</p>
+        <p class="u-capitalize fixture-opponent truncate">{{awayTeam}}</p>
     </div>
+    <md-card-subtitle class="fixture-address u-capitalize">{{fixture.address}}</md-card-subtitle>
+
     <md-card-subtitle class="u-full-w u-text-c u-capitalize">can you play?</md-card-subtitle>
   </md-card>
-
+  
   <div class="" fxLayout="row" fxAlign='space-between center'>
-    <button 
-      fxFlex   
-      md-raised-button
-      (click)="setAvailability(true)"
-      [ngClass]="{'selected': isAvailable}"
-    >
-        <md-icon>check</md-icon>
-    </button>
-    
-    <button [ngClass]="{'selected': !isAvailable && hasAnswered}" 
-      fxFlex 
-      type="button" 
-      md-raised-button  
-      (click)="setAvailability(false)"
-    >
-        <md-icon>close</md-icon>
-    </button>
-    <button
-      class="delete-button" 
-      fxFlex 
-      md-raised-button  
-      (click)="delete.emit(fixture)"
-    >
-      <md-icon>delete</md-icon>
-    </button>
-    <button
-      class="delete-button" 
-      fxFlex 
-      md-raised-button
-      (click)="edit.emit(fixture)"
-    >
-      <md-icon>edit</md-icon>
-    </button>
-  </div>
+      <button 
+        fxFlex   
+        md-raised-button
+        (click)="setAvailability(true)"
+        [ngClass]="{'selected': isAvailable}"
+      >
+          <md-icon>check</md-icon>
+      </button>
+      
+      <button [ngClass]="{'selected': !isAvailable && hasAnswered}" 
+        fxFlex 
+        type="button" 
+        md-raised-button  
+        (click)="setAvailability(false)"
+      >
+          <md-icon>close</md-icon>
+      </button>
+      <button
+        class="delete-button" 
+        fxFlex 
+        md-raised-button  
+        (click)="delete.emit(fixture)"
+      >
+        <md-icon>delete</md-icon>
+      </button>
+      <button
+        class="delete-button" 
+        fxFlex 
+        md-raised-button
+        (click)="edit.emit(fixture)"
+      >
+        <md-icon>edit</md-icon>
+      </button>
+  </div> 
 
   <md-card class="squad">
     <md-card-title class="u-margin-0 u-capitalize fixture-opponent">squad</md-card-title>

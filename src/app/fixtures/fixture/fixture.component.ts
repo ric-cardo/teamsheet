@@ -9,6 +9,7 @@ import { FixtureService } from '../fixture.service';
 })
 export class FixtureComponent implements OnInit {
   @Input() fixture;
+  @Input() team;
   @Input() user;
  
   @Output() yes = new EventEmitter();
@@ -23,6 +24,8 @@ export class FixtureComponent implements OnInit {
   }
   isAvailable;
   hasAnswered;
+  homeTeam;
+  awayTeam;
 
   constructor(private fixtureService:FixtureService) { }
 
@@ -34,6 +37,21 @@ export class FixtureComponent implements OnInit {
         this.getAvailability(players);
         
       })
+  }
+
+  ngOnChanges(changes) {
+    if(!changes.fixture){return};
+    const {ground} = changes.fixture.currentValue
+
+    if(ground === 'home'){
+      this.homeTeam = this.team.name
+      this.awayTeam = this.fixture.opponent
+    }
+
+    if(ground === 'away'){
+      this.awayTeam = this.team.name
+      this.homeTeam = this.fixture.opponent
+    }
   }
 
   setAvailability(isAvailable){

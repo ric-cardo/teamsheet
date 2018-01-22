@@ -16,11 +16,34 @@ md-card-header{
     font-weight:bold;
 }
 
+.home-team{
+    text-align: right;
+}
+
+.truncate{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 7rem;
+}
+
+.fixture-score p{
+    padding: 0.5em;
+    margin: 0.25rem 0.25rem;
+    background-color:mat-color($primary);
+    font-weight: bold;
+}
+
 .fixture-time{
     padding: 0.5em;
+    margin: 0 1rem;
     background-color: #dbdbdb;
     color: #5a5a5a;
     font-weight: bold;
+}
+
+.fixture-address{
+    margin: 0.5rem auto !important;
 }
 
 .squad{
